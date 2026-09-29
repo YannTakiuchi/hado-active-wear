@@ -1,12 +1,12 @@
 # HADO Active Wear
 
-Frontend de uma loja virtual de roupas esportivas e outdoor, feito como entrega da P1 na FATEC.
+Frontend de uma loja virtual de roupas esportivas e outdoor, desenvolvido como entrega da P1 na FATEC.
 
-Site no ar: https://SEU-SITE.netlify.app
+**Site no ar:** https://hado-active-wear.vercel.app
 
 ## Sobre o projeto
 
-A HADO é uma loja fictícia de roupas para corrida, treino e atividades ao ar livre. O projeto reúne as telas principais de um e-commerce, todas responsivas (desktop e celular).
+A HADO é uma loja fictícia de roupas para corrida, treino e atividades ao ar livre. O projeto reúne as telas principais de um e-commerce, todas responsivas para desktop e celular.
 
 ## Páginas
 
@@ -17,26 +17,27 @@ A HADO é uma loja fictícia de roupas para corrida, treino e atividades ao ar l
 - **Login:** formulário com validação
 - **Esqueci a senha:** formulário com validação
 
-## O que foi usado
+## Tecnologias
 
-- Angular 20 com standalone components
+- Angular com standalone components
 - TypeScript
 - Bootstrap 5 (via CDN) e CSS próprio com as cores da marca
-- Reactive Forms nos formulários de login e recuperação de senha
-- LocalStorage para guardar a cesta (ela continua ali ao recarregar a página)
+- Reactive Forms no login e na recuperação de senha
+- LocalStorage para guardar a cesta, que continua salva ao recarregar a página
 
 ## Como rodar na sua máquina
 
-Precisa do Node.js e do Angular CLI instalados.
+É preciso ter o Node.js e o Angular CLI instalados.
+
+1. Nesta página do GitHub, clique no botão verde **Code** e depois em **Download ZIP** (ou clone o repositório pelo GitHub Desktop).
+2. Extraia a pasta, abra o terminal dentro dela e rode:
 
 ```bash
-git clone https://github.com/SEU-USUARIO/hado-active-wear.git
-cd hado-active-wear
 npm install
 ng serve
 ```
 
-Depois é só abrir http://localhost:4200 no navegador.
+3. Abra http://localhost:4200 no navegador.
 
 ## Estrutura
 
@@ -49,10 +50,7 @@ public/img/    fotos dos produtos
 
 ## Observações
 
-- Os produtos ficam numa lista dentro do código (`produto.ts`), não há banco de dados nem API.
-- O login e a recuperação de senha só validam os campos. Não existe autenticação de verdade, já que a P1 é apenas o frontend.
-- As fotos vieram do Unsplash/Pexels.
-
-## Autor
-
-SEU NOME - Curso de SEU CURSO, FATEC SUA-CIDADE
+- Os produtos ficam em uma lista dentro do código (`produto.ts`). Não há banco de dados nem API.
+- O login e a recuperação de senha apenas validam os campos, sem autenticação real, já que a P1 cobre só o frontend.
+- As fotos são de bancos de imagens gratuitos (Unsplash e Pexels).
+- O site está publicado na Vercel e é atualizado automaticamente a cada envio para o GitHub.
