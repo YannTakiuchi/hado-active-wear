@@ -1,4 +1,4 @@
-# HADO Active Wear
+# KABUTO-HAKI Fitness Lifestyle
 
 Frontend de uma loja virtual de roupas esportivas e outdoor, desenvolvido como entrega da P1 na FATEC.
 
@@ -6,7 +6,7 @@ Frontend de uma loja virtual de roupas esportivas e outdoor, desenvolvido como e
 
 ## Sobre o projeto
 
-A HADO é uma loja fictícia de roupas para corrida, treino e atividades ao ar livre. O projeto reúne as telas principais de um e-commerce, todas responsivas para desktop e celular.
+A KABUTO-HAKI é uma loja fictícia de roupas para corrida, treino e atividades ao ar livre. O projeto reúne as telas principais de um e-commerce, todas responsivas para desktop e celular.
 
 ## Páginas
 
