@@ -1,0 +1,74 @@
+<div class="container secao">
+  <h2 class="secao-titulo">Minha cesta</h2>
+
+  @if (finalizado()) {
+    <div class="text-center py-5">
+      <h3>🎉 Pedido realizado com sucesso!</h3>
+      <p class="text-secondary">Obrigado por comprar na HADO Active Wear.</p>
+      <a routerLink="/" class="btn btn-hado">Voltar para a vitrine</a>
+    </div>
+  } @else if (cart.itens().length === 0) {
+    <div class="text-center py-5">
+      <h3>Sua cesta está vazia</h3>
+      <p class="text-secondary">Adicione produtos para começar suas compras.</p>
+      <a routerLink="/busca" class="btn btn-hado">Ver produtos</a>
+    </div>
+  } @else {
+    <div class="row g-4">
+      <div class="col-12 col-lg-8">
+        @for (item of cart.itens(); track item.produtoId + '-' + item.tamanho) {
+          <div class="cesta-item">
+            <div class="row align-items-center g-3">
+              <div class="col-3 col-md-2">
+                <img [src]="item.imagem" [alt]="item.nome">
+              </div>
+              <div class="col-9 col-md-4">
+                <a class="produto-nome" [routerLink]="['/produto', item.produtoId]">{{ item.nome }}</a>
+                <div class="text-secondary small">Tamanho: {{ item.tamanho }}</div>
+                <div class="fw-bold">{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="qtd-btn" (click)="diminuir(item.produtoId, item.tamanho)">−</button>
+                  <strong>{{ item.quantidade }}</strong>
+                  <button type="button" class="qtd-btn" (click)="aumentar(item.produtoId, item.tamanho)">+</button>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 text-end">
+                <div class="fw-bold mb-1">{{ item.preco * item.quantidade | currency:'BRL':'symbol':'1.2-2' }}</div>
+                <button type="button" class="btn btn-sm btn-outline-danger" (click)="remover(item.produtoId, item.tamanho)">Remover</button>
+              </div>
+            </div>
+          </div>
+        }
+        <button type="button" class="btn btn-link text-danger px-0" (click)="limpar()">Esvaziar cesta</button>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="resumo-card">
+          <h4>Resumo do pedido</h4>
+          <div class="d-flex justify-content-between mt-3">
+            <span>Itens ({{ cart.totalItens() }})</span>
+            <span>{{ cart.subtotal() | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <span>Frete</span>
+            <span>
+              @if (frete === 0) { Grátis } @else { {{ frete | currency:'BRL':'symbol':'1.2-2' }} }
+            </span>
+          </div>
+          <small class="text-secondary">Frete grátis em compras acima de R$ 300,00</small>
+          <hr>
+          <div class="d-flex justify-content-between fs-5 fw-bold">
+            <span>Total</span>
+            <span>{{ total | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </div>
+          <div class="d-grid gap-2 mt-4">
+            <button type="button" class="btn btn-hado btn-lg" (click)="finalizar()">Finalizar compra</button>
+            <a routerLink="/busca" class="btn btn-hado-outline">Continuar comprando</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

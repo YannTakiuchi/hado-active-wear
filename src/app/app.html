@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-hado sticky-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">HADO <span>ACTIVE WEAR</span></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+            aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menuPrincipal">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Vitrine</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/busca" routerLinkActive="active">Produtos</a>
+        </li>
+      </ul>
+
+      <form class="d-flex me-lg-3 mb-2 mb-lg-0" role="search" (submit)="buscar(campoBusca.value); $event.preventDefault()">
+        <input #campoBusca class="form-control me-2" type="search" placeholder="Buscar produtos" aria-label="Buscar">
+        <button class="btn btn-hado" type="submit">Buscar</button>
+      </form>
+
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cesta" routerLinkActive="active">
+            🛒 Cesta <span class="badge-cesta">{{ cart.totalItens() }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Entrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer-hado">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <h5>HADO Active Wear</h5>
+        <p>Roupas esportivas e outdoor para quem não para.</p>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5>Links</h5>
+        <ul class="list-unstyled">
+          <li><a routerLink="/">Vitrine</a></li>
+          <li><a routerLink="/busca">Produtos</a></li>
+          <li><a routerLink="/cesta">Minha cesta</a></li>
+          <li><a routerLink="/login">Minha conta</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5>Atendimento</h5>
+        <p class="mb-1">contato&#64;hado.com.br</p>
+        <p>Seg a Sex, 9h às 18h</p>
+      </div>
+    </div>
+    <hr style="border-color:#374151">
+    <p class="text-center mb-0 small">© 2026 HADO Active Wear. Projeto acadêmico - FATEC.</p>
+  </div>
+</footer>

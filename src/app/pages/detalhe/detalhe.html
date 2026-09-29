@@ -1,0 +1,55 @@
+<div class="container secao">
+  @if (produto(); as p) {
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Vitrine</a></li>
+        <li class="breadcrumb-item"><a routerLink="/busca" [queryParams]="{ categoria: p.categoria }">{{ p.categoria }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ p.nome }}</li>
+      </ol>
+    </nav>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-6">
+        <img class="detalhe-img" [src]="p.imagem" [alt]="p.nome">
+      </div>
+
+      <div class="col-12 col-md-6">
+        <span class="produto-categoria">{{ p.categoria }}</span>
+        <h1 class="mt-1">{{ p.nome }}</h1>
+        <p class="detalhe-preco">{{ p.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+        <p class="text-secondary">{{ p.descricao }}</p>
+
+        <h6 class="mt-4">Tamanho</h6>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          @for (t of p.tamanhos; track t) {
+            <button type="button" class="tamanho-btn" [class.ativo]="tamanho() === t" (click)="escolherTamanho(t)">{{ t }}</button>
+          }
+        </div>
+
+        <h6>Quantidade</h6>
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <button type="button" class="qtd-btn" (click)="alterarQuantidade(-1)">−</button>
+          <strong>{{ quantidade() }}</strong>
+          <button type="button" class="qtd-btn" (click)="alterarQuantidade(1)">+</button>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex">
+          <button type="button" class="btn btn-hado btn-lg" (click)="adicionar()">Adicionar à cesta</button>
+          <button type="button" class="btn btn-hado-outline btn-lg" (click)="comprarAgora()">Comprar agora</button>
+        </div>
+
+        @if (adicionado()) {
+          <div class="alert alert-success mt-3" role="alert">
+            Produto adicionado à cesta! <a routerLink="/cesta">Ir para a cesta</a>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="text-center py-5">
+      <h2>Produto não encontrado</h2>
+      <p class="text-secondary">O produto que você procura não existe ou foi removido.</p>
+      <a routerLink="/" class="btn btn-hado">Voltar para a vitrine</a>
+    </div>
+  }
+</div>

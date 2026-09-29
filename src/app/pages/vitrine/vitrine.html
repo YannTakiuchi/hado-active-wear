@@ -1,0 +1,51 @@
+<section class="hero">
+  <div class="container">
+    <h1>Vá além do <span>seu limite</span></h1>
+    <p class="mt-3 mb-4">Roupas esportivas e outdoor com tecnologia, conforto e estilo para corrida, treino e aventura.</p>
+    <a routerLink="/busca" class="btn btn-hado btn-lg me-2">Ver produtos</a>
+    <a routerLink="/login" class="btn btn-outline-light btn-lg">Entrar</a>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="container">
+    <h2 class="secao-titulo">Categorias</h2>
+    <div class="row g-3">
+      @for (c of categorias; track c) {
+        <div class="col-12 col-md-4">
+          <a class="categoria-card" routerLink="/busca" [queryParams]="{ categoria: c }">{{ c }}</a>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="container">
+    <h2 class="secao-titulo">Destaques</h2>
+    <div class="row g-4">
+      @for (p of destaques; track p.id) {
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="produto-card">
+            <a [routerLink]="['/produto', p.id]">
+              <img [src]="p.imagem" [alt]="p.nome">
+            </a>
+            <div class="corpo">
+              <span class="produto-categoria">{{ p.categoria }}</span>
+              <a class="produto-nome" [routerLink]="['/produto', p.id]">{{ p.nome }}</a>
+              <span class="produto-preco">{{ p.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+              <div class="produto-acoes">
+                <a class="btn btn-hado-outline btn-sm" [routerLink]="['/produto', p.id]">Ver detalhes</a>
+                <button class="btn btn-hado btn-sm" type="button" (click)="adicionar(p)">Adicionar à cesta</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if (aviso()) {
+  <div class="aviso-flutuante">✔ {{ aviso() }}</div>
+}

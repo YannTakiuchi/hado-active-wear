@@ -1,0 +1,53 @@
+<div class="container secao">
+  <h2 class="secao-titulo">
+    @if (termo()) {
+      Resultados para "{{ termo() }}"
+    } @else {
+      Todos os produtos
+    }
+  </h2>
+
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-sm" [class.btn-hado]="!categoria()" [class.btn-hado-outline]="categoria()"
+       routerLink="/busca" [queryParams]="{ categoria: null }" queryParamsHandling="merge">Todas</a>
+    @for (c of categorias; track c) {
+      <a class="btn btn-sm" [class.btn-hado]="categoria() === c" [class.btn-hado-outline]="categoria() !== c"
+         routerLink="/busca" [queryParams]="{ categoria: c }" queryParamsHandling="merge">{{ c }}</a>
+    }
+  </div>
+
+  <p class="text-secondary">{{ resultados().length }} produto(s) encontrado(s)</p>
+
+  @if (resultados().length > 0) {
+    <div class="row g-4">
+      @for (p of resultados(); track p.id) {
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="produto-card">
+            <a [routerLink]="['/produto', p.id]">
+              <img [src]="p.imagem" [alt]="p.nome">
+            </a>
+            <div class="corpo">
+              <span class="produto-categoria">{{ p.categoria }}</span>
+              <a class="produto-nome" [routerLink]="['/produto', p.id]">{{ p.nome }}</a>
+              <span class="produto-preco">{{ p.preco | currency:'BRL':'symbol':'1.2-2' }}</span>
+              <div class="produto-acoes">
+                <a class="btn btn-hado-outline btn-sm" [routerLink]="['/produto', p.id]">Ver detalhes</a>
+                <button class="btn btn-hado btn-sm" type="button" (click)="adicionar(p)">Adicionar à cesta</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="text-center py-5">
+      <h3>Nenhum produto encontrado</h3>
+      <p class="text-secondary">Tente buscar por outro termo ou escolha uma categoria.</p>
+      <a routerLink="/" class="btn btn-hado">Voltar para a vitrine</a>
+    </div>
+  }
+</div>
+
+@if (aviso()) {
+  <div class="aviso-flutuante">✔ {{ aviso() }}</div>
+}

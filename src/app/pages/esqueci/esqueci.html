@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="form-card">
+    <h2 class="mb-1">Esqueci a senha</h2>
+    <p class="text-secondary mb-4">Informe seu e-mail e enviaremos um link para redefinir sua senha.</p>
+
+    @if (sucesso) {
+      <div class="alert alert-success" role="alert">
+        Enviamos as instruções de recuperação para <strong>{{ email.value }}</strong>.
+      </div>
+      <div class="d-grid gap-2">
+        <a routerLink="/login" class="btn btn-hado">Voltar para o login</a>
+        <a routerLink="/" class="btn btn-hado-outline">Ir para a vitrine</a>
+      </div>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="recuperar()" novalidate>
+        <div class="mb-3">
+          <label for="emailRec" class="form-label fw-semibold">E-mail cadastrado</label>
+          <input id="emailRec" type="email" class="form-control" formControlName="email"
+                 placeholder="seuemail@exemplo.com"
+                 [class.is-invalid]="email.invalid && (email.touched || enviado)">
+          @if (email.invalid && (email.touched || enviado)) {
+            @if (email.errors?.['required']) {
+              <div class="erro-campo">O e-mail é obrigatório.</div>
+            }
+            @if (email.errors?.['email']) {
+              <div class="erro-campo">Digite um e-mail válido.</div>
+            }
+          }
+        </div>
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-hado btn-lg">Enviar link de recuperação</button>
+          <a routerLink="/login" class="btn btn-hado-outline">Voltar para o login</a>
+        </div>
+      </form>
+    }
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="form-card">
+    <h2 class="mb-1">Entrar</h2>
+    <p class="text-secondary mb-4">Acesse sua conta HADO Active Wear.</p>
+
+    <form [formGroup]="form" (ngSubmit)="entrar()" novalidate>
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">E-mail</label>
+        <input id="email" type="email" class="form-control" formControlName="email"
+               placeholder="seuemail@exemplo.com"
+               [class.is-invalid]="email.invalid && (email.touched || enviado)">
+        @if (email.invalid && (email.touched || enviado)) {
+          @if (email.errors?.['required']) {
+            <div class="erro-campo">O e-mail é obrigatório.</div>
+          }
+          @if (email.errors?.['email']) {
+            <div class="erro-campo">Digite um e-mail válido.</div>
+          }
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="senha" class="form-label fw-semibold">Senha</label>
+        <input id="senha" type="password" class="form-control" formControlName="senha"
+               placeholder="Mínimo de 6 caracteres"
+               [class.is-invalid]="senha.invalid && (senha.touched || enviado)">
+        @if (senha.invalid && (senha.touched || enviado)) {
+          @if (senha.errors?.['required']) {
+            <div class="erro-campo">A senha é obrigatória.</div>
+          }
+          @if (senha.errors?.['minlength']) {
+            <div class="erro-campo">A senha deve ter no mínimo 6 caracteres.</div>
+          }
+        }
+      </div>
+
+      <div class="text-end mb-3">
+        <a routerLink="/esqueci">Esqueci minha senha</a>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-hado btn-lg">Entrar</button>
+      </div>
+    </form>
+
+    <hr class="my-4">
+    <p class="text-center mb-0">
+      <a routerLink="/">← Voltar para a vitrine</a>
+    </p>
+  </div>
+</div>
