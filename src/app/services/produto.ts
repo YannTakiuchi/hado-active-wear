@@ -53,7 +53,8 @@ export class ProdutoService {
       id: 8, nome: 'Regata Performance', categoria: 'Treino', preco: 69.9, destaque: false,
       descricao: 'Regata leve com modelagem atlética, ótima para musculação e treinos funcionais.',
       imagem: 'img/regata-performance.jpg', tamanhos: ['P', 'M', 'G', 'GG']
-    } {
+    },
+    {
       id: 9, nome: 'Tênis Estabilidade Kabuto Stride', categoria: 'Corrida', preco: 599.9, destaque: false,
       descricao: 'Tênis de corrida para pisada com estabilidade, com amortecimento em gel no calcanhar e no antepé. Protege joelhos e articulações em longas distâncias.',
       imagem: 'img/tenis-stride.jpg', tamanhos: ['38', '39', '40', '41', '42', '43']
