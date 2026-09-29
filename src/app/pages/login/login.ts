@@ -16,7 +16,7 @@ export class LoginComponent {
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    senha: ['', [Validators.required, Validators.minLength(8)]]
+    senha: ['', [Validators.required, Validators.minLength(6)]]
   });
 
   get email() { return this.form.controls.email; }
