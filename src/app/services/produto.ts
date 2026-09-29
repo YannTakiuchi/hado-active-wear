@@ -53,6 +53,20 @@ export class ProdutoService {
       id: 8, nome: 'Regata Performance', categoria: 'Treino', preco: 69.9, destaque: false,
       descricao: 'Regata leve com modelagem atlética, ótima para musculação e treinos funcionais.',
       imagem: 'img/regata-performance.jpg', tamanhos: ['P', 'M', 'G', 'GG']
+    } {
+      id: 9, nome: 'Tênis Estabilidade Kabuto Stride', categoria: 'Corrida', preco: 599.9, destaque: false,
+      descricao: 'Tênis de corrida para pisada com estabilidade, com amortecimento em gel no calcanhar e no antepé. Protege joelhos e articulações em longas distâncias.',
+      imagem: 'img/tenis-stride.jpg', tamanhos: ['38', '39', '40', '41', '42', '43']
+    },
+    {
+      id: 10, nome: 'Mochila de Hidratação Trail Flow', categoria: 'Outdoor', preco: 229.9, destaque: false,
+      descricao: 'Mochila leve de 10 litros com reservatório de água de 2 litros e tubo com válvula de bocal. Hidratação constante sem parar, em trilhas e corridas longas.',
+      imagem: 'img/mochila-hidratacao.jpg', tamanhos: ['Único']
+    },
+    {
+      id: 11, nome: 'Kit Gel de Carboidrato Energy', categoria: 'Corrida', preco: 59.9, destaque: false,
+      descricao: 'Kit com 6 sachês de gel de carboidrato de rápida absorção, para repor a energia durante provas e treinos longos. Sabor frutas cítricas.',
+      imagem: 'img/gel-energy.jpg', tamanhos: ['Único']
     }
   ];
 
