@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="form-card" style="max-width: 640px;">
+
+    @if (concluido()) {
+
+      <div class="text-center">
+        <h2 class="mb-2">🎉 Conta criada!</h2>
+        <p class="text-secondary mb-4">Bem-vindo(a), <strong>{{ nomeCadastrado() }}</strong>. Seu cadastro foi realizado com sucesso.</p>
+        <div class="d-grid gap-2">
+          <a routerLink="/login" class="btn btn-hado btn-lg">Ir para o login</a>
+          <a routerLink="/" class="btn btn-hado-outline">Voltar para a vitrine</a>
+        </div>
+      </div>
+
+    } @else {
+
+      <h2 class="mb-1">Criar conta</h2>
+      <p class="text-secondary mb-4">Preencha os dados para se cadastrar na KABUTO-HAKI Fitness Lifestyle.</p>
+
+      <form [formGroup]="form" (ngSubmit)="cadastrar()" novalidate>
+        <div class="row g-3">
+
+          <div class="col-12">
+            <label for="nome" class="form-label fw-semibold">Nome completo</label>
+            <input id="nome" type="text" class="form-control" formControlName="nome"
+                   placeholder="Nome e sobrenome" [class.is-invalid]="invalido(f.nome)">
+            @if (invalido(f.nome)) {
+              @if (f.nome.errors?.['required']) { <div class="erro-campo">O nome é obrigatório.</div> }
+              @else if (f.nome.errors?.['minlength']) { <div class="erro-campo">O nome deve ter no mínimo 3 letras.</div> }
+              @else if (f.nome.errors?.['semSobrenome']) { <div class="erro-campo">Digite nome e sobrenome.</div> }
+            }
+          </div>
+
+          <div class="col-12">
+            <label for="email" class="form-label fw-semibold">E-mail</label>
+            <input id="email" type="email" class="form-control" formControlName="email"
+                   placeholder="seuemail@exemplo.com" [class.is-invalid]="invalido(f.email)">
+            @if (invalido(f.email)) {
+              @if (f.email.errors?.['required']) { <div class="erro-campo">O e-mail é obrigatório.</div> }
+              @else if (f.email.errors?.['email']) { <div class="erro-campo">Digite um e-mail válido.</div> }
+            }
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="cpf" class="form-label fw-semibold">CPF</label>
+            <input id="cpf" type="text" class="form-control" formControlName="cpf" inputmode="numeric"
+                   maxlength="14" placeholder="000.000.000-00" (input)="mascararCpf()"
+                   [class.is-invalid]="invalido(f.cpf)">
+            @if (invalido(f.cpf)) {
+              @if (f.cpf.errors?.['required']) { <div class="erro-campo">O CPF é obrigatório.</div> }
+              @else if (f.cpf.errors?.['cpfInvalido']) { <div class="erro-campo">CPF inválido.</div> }
+            }
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="nascimento" class="form-label fw-semibold">Data de nascimento</label>
+            <input id="nascimento" type="date" class="form-control" formControlName="nascimento"
+                   [max]="hoje" [class.is-invalid]="invalido(f.nascimento)">
+            @if (invalido(f.nascimento)) {
+              @if (f.nascimento.errors?.['required']) { <div class="erro-campo">A data de nascimento é obrigatória.</div> }
+              @else if (f.nascimento.errors?.['menorDeIdade']) { <div class="erro-campo">É preciso ter 18 anos ou mais.</div> }
+              @else if (f.nascimento.errors?.['dataFutura'] || f.nascimento.errors?.['dataInvalida']) { <div class="erro-campo">Digite uma data válida.</div> }
+            }
+          </div>
+
+          <div class="col-12">
+            <label for="telefone" class="form-label fw-semibold">Telefone (com DDD)</label>
+            <input id="telefone" type="tel" class="form-control" formControlName="telefone" inputmode="numeric"
+                   maxlength="15" placeholder="(11) 91234-5678" (input)="mascararTelefone()"
+                   [class.is-invalid]="invalido(f.telefone)">
+            @if (invalido(f.telefone)) {
+              @if (f.telefone.errors?.['required']) { <div class="erro-campo">O telefone é obrigatório.</div> }
+              @else if (f.telefone.errors?.['pattern']) { <div class="erro-campo">Telefone inválido. Use (11) 91234-5678.</div> }
+            }
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="senha" class="form-label fw-semibold">Senha</label>
+            <div class="input-group">
+              <input id="senha" [type]="mostrarSenha() ? 'text' : 'password'" class="form-control"
+                     formControlName="senha" placeholder="Crie uma senha" [class.is-invalid]="invalido(f.senha)">
+              <button type="button" class="btn btn-outline-secondary" (click)="alternarSenha()">
+                {{ mostrarSenha() ? 'Ocultar' : 'Mostrar' }}
+              </button>
+            </div>
+            <div class="form-text">Mínimo de 8 caracteres, com letra maiúscula, minúscula e número.</div>
+            @if (invalido(f.senha)) {
+              @if (f.senha.errors?.['required']) { <div class="erro-campo">A senha é obrigatória.</div> }
+              @else if (f.senha.errors?.['minlength']) { <div class="erro-campo">A senha deve ter no mínimo 8 caracteres.</div> }
+              @else if (f.senha.errors?.['pattern']) { <div class="erro-campo">Use letra maiúscula, minúscula e número.</div> }
+            }
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="confirmarSenha" class="form-label fw-semibold">Confirmar senha</label>
+            <input id="confirmarSenha" [type]="mostrarSenha() ? 'text' : 'password'" class="form-control"
+                   formControlName="confirmarSenha" placeholder="Repita a senha"
+                   [class.is-invalid]="invalido(f.confirmarSenha) || senhasDiferentes()">
+            @if (invalido(f.confirmarSenha)) {
+              <div class="erro-campo">Confirme a senha.</div>
+            } @else if (senhasDiferentes()) {
+              <div class="erro-campo">As senhas não são iguais.</div>
+            }
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="termos" formControlName="termos"
+                     [class.is-invalid]="invalido(f.termos)">
+              <label class="form-check-label" for="termos">Li e aceito os termos de uso e a política de privacidade.</label>
+            </div>
+            @if (invalido(f.termos)) {
+              <div class="erro-campo">É preciso aceitar os termos para continuar.</div>
+            }
+            <div class="form-check mt-2">
+              <input class="form-check-input" type="checkbox" id="newsletter" formControlName="newsletter">
+              <label class="form-check-label" for="newsletter">Quero receber ofertas e novidades por e-mail (opcional).</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-hado btn-lg">Criar conta</button>
+        </div>
+      </form>
+
+      <hr class="my-4">
+      <p class="text-center mb-0">
+        Já tem conta? <a routerLink="/login">Entrar</a>
+      </p>
+
+    }
+  </div>
+</div>
